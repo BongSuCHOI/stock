@@ -8,11 +8,10 @@ export default function TableList({ headRows, listData }) {
 		);
 	});
 
-	// 이 부분 리팩토링 필요함 (좀 더 확장성있게. 우선은 ma나오는 리스트랑 시총 나오는 리스트 두 종류)
 	const tBodyColumn =
 		listData.length > 0 ? (
 			listData.map((data) => {
-				const { name, code, prevClose, prevCloseDiff, prevCloseRate, ma5, ma20, prevVolume, test } = data;
+				const { name, code, prevClose, prevCloseDiff, prevCloseRate, ma5, ma20, prevVolume, marketCap } = data;
 				const updown = Number(prevCloseRate) > 0 ? 'text-red-500' : 'text-blue-600';
 
 				return (
@@ -28,7 +27,7 @@ export default function TableList({ headRows, listData }) {
 						<td className={`py-4 text-right text-lg ${updown}`}>{prevCloseRate}%</td>
 						{ma5 && <td className="py-4 text-right text-lg">{ma5}</td>}
 						{ma20 && <td className="py-4 text-right text-lg">{ma20}</td>}
-						{test && <td className="py-4 text-right text-lg">{test}</td>}
+						{marketCap && <td className="py-4 text-right text-lg">{marketCap}</td>}
 						<td className="py-4 text-right text-lg">{prevVolume}</td>
 					</tr>
 				);
