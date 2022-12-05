@@ -3,7 +3,14 @@ import ContentsTitle from '@components/ContentsTitle';
 import TableList from '@components/TableList';
 import { DESCENDING_SORT } from '@/lib/calc';
 
+async function test() {
+	const f = await fetch('http://localhost:3000/api/hello');
+	const res = await f.json();
+	console.log(res);
+}
+
 export default function RootPage() {
+	test();
 	const DUMMY_data = [
 		{
 			name: 'SK이노베이션',
@@ -65,7 +72,7 @@ export default function RootPage() {
 	];
 	const DUMMY_data_zero = [];
 
-    // 임시로 해놨지만 사실상 ma는 따로 계산해야할듯 우선 db 연결하고 로직 수정
+	// 임시로 해놨지만 사실상 ma는 따로 계산해야할듯 우선 db 연결하고 로직 수정
 	const goldCrossData = DUMMY_data.filter((data) => {
 		const { ma5, ma20 } = data;
 		return ma5 > ma20;
