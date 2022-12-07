@@ -1,24 +1,33 @@
-import Link from 'next/link';
+'use client';
 
-export default function Category() {
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
+export default function Category({ categoryData }) {
+	const pathName = usePathname();
+	const decodePath = decodeURI(pathName);
+
+	const CategoryList = categoryData
+		.filter((data, idx, callback) => {
+			// 중복 키값 제거
+			return idx === callback.findIndex((arr) => arr.STK_TD === data.STK_TD);
+		})
+		.map((data) => {
+			const activeClass = decodePath === `/theme/${data.STK_TD}` ? 'bg-slate-700 text-white' : 'bg-slate-100';
+			return (
+				<li key={data.STK_TD} className={`px-4 py-2 rounded-full ${activeClass}`}>
+					<Link href={`/theme/${data.STK_TD}`}>{data.STK_TD}</Link>
+				</li>
+			);
+		});
+
 	return (
 		<div className="py-2 border-y border-slate-200">
 			<ul className="flex items-center justify-center space-x-2">
-				<li className="px-4 py-2 bg-slate-700 rounded-full text-white">
-					<Link href="/">2차전지</Link>
+				<li className={`px-4 py-2 rounded-full ${decodePath === '/' ? 'bg-slate-700 text-white' : 'bg-slate-100'}`}>
+					<Link href={'/'}>전체</Link>
 				</li>
-				<li className="px-4 py-2 bg-slate-100 rounded-full">
-					<Link href="/">네옴시티</Link>
-				</li>
-				<li className="px-4 py-2 bg-slate-100 rounded-full">
-					<Link href="/">건설</Link>
-				</li>
-				<li className="px-4 py-2 bg-slate-100 rounded-full">
-					<Link href="/">철강</Link>
-				</li>
-				<li className="px-4 py-2 bg-slate-100 rounded-full">
-					<Link href="/">구제역/광우병 수혜</Link>
-				</li>
+				{CategoryList}
 			</ul>
 		</div>
 	);

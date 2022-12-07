@@ -1,115 +1,87 @@
-import Category from '@components/Category';
 import ContentsTitle from '@components/ContentsTitle';
 import TableList from '@components/TableList';
-import { DESCENDING_SORT } from '@/lib/calc';
+import { DESCENDING_SORT, A_TO_B_PERCENT, MA } from '@/lib/calc';
 
-async function test() {
-	const f = await fetch('http://localhost:3000/api/hello');
-	const res = await f.json();
-	console.log(res);
+async function getAllStock() {
+	const req = await fetch('http://localhost:3000/api/allStock');
+	const res = await req.json();
+	return res;
 }
 
-export default function RootPage() {
-	test();
-	const DUMMY_data = [
-		{
-			name: 'SK이노베이션',
-			code: '234534',
-			prevClose: '170,500',
-			prevCloseDiff: '800',
-			prevCloseRate: '1.16',
-			ma5: '170,400',
-			ma20: '170,025',
+export default async function RootPage() {
+	const allStockData = await getAllStock();
+
+	// 로직 수정해야할거같음 한번에 map에서 다 계산하는건 비효율적이지않을까
+	const processingStockData = allStockData.map((data) => {
+		const currentOHLCV = data.stk_ohlcv[data.stk_ohlcv.length - 1];
+		const prevOHLCV = data.stk_ohlcv[data.stk_ohlcv.length - 2];
+
+		const currentClosePrice = currentOHLCV.STK_CLOSE;
+		const currentVolume = currentOHLCV.STK_VOLUME;
+		const prevClosePrice = prevOHLCV.STK_CLOSE;
+		const prevVolume = prevOHLCV.STK_VOLUME;
+
+		const closeDiff = currentClosePrice - prevClosePrice;
+		const closeRate = A_TO_B_PERCENT(currentClosePrice, prevClosePrice);
+		const volumeRate = A_TO_B_PERCENT(currentVolume, prevVolume);
+		const ma5 = MA(data.stk_ohlcv.slice(-5), 5);
+		const ma20 = MA(data.stk_ohlcv.slice(-20), 20);
+
+		return {
+			name: data.STK_NM,
+			code: data.STK_CD,
+			market: data.STK_MK,
+			theme: data.STK_TD,
+			close: currentClosePrice,
 			marketCap: '37,900,000',
-			prevVolume: '1,111,354,579',
-		},
-		{
-			name: 'POSCO홀딩스',
-			code: '153423',
-			prevClose: '288,500',
-			prevCloseDiff: '1000',
-			prevCloseRate: '-0.35',
-			ma5: '288,400',
-			ma20: '288,025',
-			marketCap: '2,428,500,000',
-			prevVolume: '2,644,578',
-		},
-		{ name: '테스트', code: '234523', prevClose: '1,500', prevCloseDiff: '800', prevCloseRate: '1.16', ma5: '1,480', ma20: '1,525', marketCap: '353,300,000', prevVolume: '1,111,354,579' },
-		{
-			name: '더미더미더미',
-			code: '723455',
-			prevClose: '288,500',
-			prevCloseDiff: '1000',
-			prevCloseRate: '-0.35',
-			ma5: '2,400',
-			ma20: '2,825',
-			marketCap: '198,900,000',
-			prevVolume: '2,644,578',
-		},
-		{
-			name: 'POSCO홀딩스',
-			code: '555354',
-			prevClose: '288,500',
-			prevCloseDiff: '1000',
-			prevCloseRate: '-0.35',
-			ma5: '288,400',
-			ma20: '288,025',
-			marketCap: '1,418,500,000',
-			prevVolume: '2,644,578',
-		},
-		{ name: '테스트', code: '342345', prevClose: '1,500', prevCloseDiff: '800', prevCloseRate: '1.16', ma5: '1,480', ma20: '1,525', marketCap: '7,353,300,000', prevVolume: '1,111,354,579' },
-		{
-			name: '더미더미더미',
-			code: '123453',
-			prevClose: '288,500',
-			prevCloseDiff: '1000',
-			prevCloseRate: '-0.35',
-			ma5: '2,400',
-			ma20: '2,825',
-			marketCap: '912,900,000',
-			prevVolume: '2,644,578',
-		},
-	];
-	const DUMMY_data_zero = [];
+			volume: currentVolume.toString(),
+			volumeRate,
+			closeDiff,
+			closeRate,
+			ma5,
+			ma20,
+		};
+	});
 
-	// 임시로 해놨지만 사실상 ma는 따로 계산해야할듯 우선 db 연결하고 로직 수정
-	const goldCrossData = DUMMY_data.filter((data) => {
-		const { ma5, ma20 } = data;
-		return ma5 > ma20;
-	}).map((arr) => {
-		const { marketCap, ...other } = arr;
+	const goldCrossData = processingStockData
+		.filter((data) => {
+			const { ma5, ma20 } = data;
+			return ma5 > ma20;
+		})
+		.map((arr) => {
+			const { marketCap, volumeRate, ...other } = arr;
+			return other;
+		});
+
+	const deadCrossData = processingStockData
+		.filter((data) => {
+			const { ma5, ma20 } = data;
+			return ma5 < ma20;
+		})
+		.map((arr) => {
+			const { marketCap, volumeRate, ...other } = arr;
+			return other;
+		});
+
+	const marketCap5 = DESCENDING_SORT(processingStockData, 'marketCap', 5).map((arr) => {
+		const { ma5, ma20, volumeRate, ...other } = arr;
 		return other;
 	});
 
-	const deadCrossData = DUMMY_data.filter((data) => {
-		const { ma5, ma20 } = data;
-		return ma5 < ma20;
-	}).map((arr) => {
-		const { marketCap, ...other } = arr;
+	const volume5 = DESCENDING_SORT(processingStockData, 'volume', 5).map((arr) => {
+		const { ma5, ma20, volumeRate, ...other } = arr;
 		return other;
 	});
 
-	const marketCap5 = DESCENDING_SORT(DUMMY_data, 'marketCap', 5).map((arr) => {
-		const { ma5, ma20, ...other } = arr;
-		return other;
-	});
-
-	const volume5 = DESCENDING_SORT(DUMMY_data, 'prevVolume', 5).map((arr) => {
-		const { ma5, ma20, ...other } = arr;
-		return other;
-	});
+	const increaseVolume = processingStockData
+		.filter((data) => data.volumeRate > 0)
+		.map((arr) => {
+			const { marketCap, ma5, ma20, ...other } = arr;
+			return other;
+		});
 
 	return (
-		<div className="max-w-screen-lg px-4 mx-auto relative">
-			<div className="my-20 text-center">
-				<h1 className="text-8xl font-semibold">STOCK</h1>
-				<h2 className="text-base mt-2 font-light">
-					테마별 상위 시가총액 종목과
-					<br />
-					MA(이동평균선) 골드크로스/데드크로스 종목을 알려드립니다.
-				</h2>
-			</div>
-			<Category />
+		<div className="">
 			<div className="mt-12">
 				<ContentsTitle title="골드크로스" />
 				<TableList headRows={['종목명', '전일 종가', '전일 등락률', 'MA 5일', 'MA 20일', '전일 거래량']} listData={goldCrossData} />
@@ -128,7 +100,7 @@ export default function RootPage() {
 			</div>
 			<div className="mt-24">
 				<ContentsTitle title="거래량 증가" />
-				<TableList headRows={['종목명', '전일 종가', '전일 등락률', '거래량 증가율', '전일 거래량']} listData={DUMMY_data_zero} />
+				<TableList headRows={['종목명', '전일 종가', '전일 등락률', '거래량 증가율', '전일 거래량']} listData={increaseVolume} />
 			</div>
 		</div>
 	);

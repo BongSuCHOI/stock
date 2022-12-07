@@ -11,8 +11,8 @@ export default function TableList({ headRows, listData }) {
 	const tBodyColumn =
 		listData.length > 0 ? (
 			listData.map((data) => {
-				const { name, code, prevClose, prevCloseDiff, prevCloseRate, ma5, ma20, prevVolume, marketCap } = data;
-				const updown = Number(prevCloseRate) > 0 ? 'text-red-500' : 'text-blue-600';
+				const { name, code, close, closeDiff, closeRate, ma5, ma20, volume, marketCap, volumeRate } = data;
+				const updown = Number(closeRate) > 0 ? 'text-red-500' : 'text-blue-600';
 
 				return (
 					<tr key={code} className="border-b border-slate-200">
@@ -21,14 +21,15 @@ export default function TableList({ headRows, listData }) {
 							<span className="block text-xs text-slate-500">{code}</span>
 						</td>
 						<td className="py-4 text-right text-lg">
-							{prevClose}
-							<span className={`block text-xs ${updown}`}>{prevCloseDiff}</span>
+							{close}
+							<span className={`block text-xs ${updown}`}>{closeDiff}</span>
 						</td>
-						<td className={`py-4 text-right text-lg ${updown}`}>{prevCloseRate}%</td>
+						<td className={`py-4 text-right text-lg ${updown}`}>{closeRate}%</td>
 						{ma5 && <td className="py-4 text-right text-lg">{ma5}</td>}
 						{ma20 && <td className="py-4 text-right text-lg">{ma20}</td>}
+						{volumeRate && <td className="py-4 text-right text-lg">{volumeRate}%</td>}
 						{marketCap && <td className="py-4 text-right text-lg">{marketCap}</td>}
-						<td className="py-4 text-right text-lg">{prevVolume}</td>
+						<td className="py-4 text-right text-lg">{volume}</td>
 					</tr>
 				);
 			})
