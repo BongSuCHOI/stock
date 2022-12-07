@@ -22,31 +22,31 @@ model Fundamental {
   total_assets      String?    @db.VarChar(40)
   total_liabilities String?    @db.VarChar(40)
   total_equity      String?    @db.VarChar(40)
-  Stock_Item        Stock_Item @relation(fields: [STK_CD], references: [STK_CD], onDelete: NoAction, onUpdate: NoAction, map: "Fundamental_ibfk_1")
+  stk_item          Stock_Item @relation(fields: [STK_CD], references: [STK_CD], onDelete: NoAction, onUpdate: NoAction, map: "Fundamental_ibfk_1")
 }
 
 model STK_OHLCV {
-  STK_CD      String     @db.VarChar(40)
-  STK_YEAR    String     @db.VarChar(40)
-  STK_OPEN    Int?
-  STK_HIGH    Int?
-  STK_LOW     Int?
-  STK_CLOSE   Int?
-  STK_VOLUME  Int?
-  trading_val Int?
-  Stock_Item  Stock_Item @relation(fields: [STK_CD], references: [STK_CD], onDelete: NoAction, onUpdate: NoAction, map: "STK_OHLCV_ibfk_1")
+  STK_CD     String     @db.VarChar(40)
+  STK_YEAR   String     @db.VarChar(40)
+  STK_OPEN   Int?
+  STK_HIGH   Int?
+  STK_LOW    Int?
+  STK_CLOSE  Int?
+  STK_VOLUME Int?
+  stk_item   Stock_Item @relation(fields: [STK_CD], references: [STK_CD], onDelete: NoAction, onUpdate: NoAction, map: "STK_OHLCV_ibfk_1")
 
   @@id([STK_CD, STK_YEAR])
 }
 
 model Stock_Item {
-  STK_CD         String           @db.VarChar(40)
+  STK_CD         String           @unique @db.VarChar(40)
   STK_NM         String?          @db.VarChar(200)
   STK_MK         String?          @db.VarChar(40)
   STK_TD         String           @db.VarChar(40)
-  Fundamental    Fundamental?
-  STK_OHLCV      STK_OHLCV[]
-  Stock_textdata Stock_textdata[]
+  fundamental    Fundamental?
+  stk_ohlcv      STK_OHLCV[]
+  stk_textdata   Stock_textdata[]
+  stk_result     stock_result?
 
   @@id([STK_CD, STK_TD])
 }
@@ -58,7 +58,7 @@ model Stock_textdata {
   content    String?    @db.VarChar(40)
   DATA_type  String?    @db.VarChar(40)
   url        String?    @db.VarChar(200)
-  Stock_Item Stock_Item @relation(fields: [STK_CD], references: [STK_CD], onDelete: NoAction, onUpdate: NoAction, map: "Stock_textdata_ibfk_1")
+  stk_item   Stock_Item @relation(fields: [STK_CD], references: [STK_CD], onDelete: NoAction, onUpdate: NoAction, map: "Stock_textdata_ibfk_1")
 
   @@index([STK_CD], map: "STK_CD")
 }
@@ -173,41 +173,14 @@ model django_session {
   @@index([expire_date], map: "django_session_expire_date_a5c62663")
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model stock_OHLCV {
-  STK_CD        String        @db.VarChar(40)
-  STK_YEAR      String?       @db.VarChar(20)
-  STK_OPEN      Int?
-  STK_HIGH      Int?
-  STK_LOW       Int?
-  STK_CLOSE     Int?
-  STK_VOLUME    Int?
-  themed_stocks themed_stocks @relation(fields: [STK_CD], references: [STK_CD], onDelete: NoAction, onUpdate: NoAction, map: "stock_OHLCV_ibfk_1")
-
-  @@index([STK_CD], map: "STK_CD")
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model stock_result {
-  STK_CD        String        @db.VarChar(40)
-  STK_YEAR      String?       @db.VarChar(20)
-  STK_RESULT    String?       @db.VarChar(40)
-  themed_stocks themed_stocks @relation(fields: [STK_CD], references: [STK_CD], onDelete: NoAction, onUpdate: NoAction, map: "stock_result_ibfk_1")
-
-  @@index([STK_CD], map: "STK_CD")
-  @@ignore
+  STK_CD     String     @id @db.VarChar(40)
+  STK_YEAR   String?    @db.VarChar(20)
+  STK_RESULT String?    @db.VarChar(40)
+  stk_item   Stock_Item @relation(fields: [STK_CD], references: [STK_CD], onDelete: NoAction, onUpdate: NoAction, map: "stock_result_ibfk_1")
 }
 
 model stockaws_mainappmodel {
   id         BigInt  @id @default(autoincrement())
   main_intro String? @db.VarChar(255)
-}
-
-model themed_stocks {
-  STK_CD       String         @id @db.VarChar(40)
-  STK_NM       String?        @db.VarChar(200)
-  EX_CD        String?        @db.VarChar(40)
-  stock_OHLCV  stock_OHLCV[]  @ignore
-  stock_result stock_result[] @ignore
 }
