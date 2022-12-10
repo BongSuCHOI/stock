@@ -11,22 +11,22 @@ export default function TableList({ headRows, listData }) {
 	const tBodyColumn =
 		listData.length > 0 ? (
 			listData.map((data) => {
-				const { name, code, close, closeDiff, closeRate, ma5, ma20, volume, marketCap, volumeRate } = data;
+				const { name, code, market, close, marketCap, volume, volumeRate, closeDiff, closeRate } = data;
 				const updown = Number(closeRate) > 0 ? 'text-red-500' : 'text-blue-600';
 
 				return (
 					<tr key={code} className="border-b border-slate-200">
 						<td className="py-4 text-left text-lg">
 							{name}
-							<span className="block text-xs text-slate-500">{code}</span>
+							<span className="block text-xs text-slate-500">
+								{code} / {market}
+							</span>
 						</td>
 						<td className="py-4 text-right text-lg">
 							{close}
 							<span className={`block text-xs ${updown}`}>{closeDiff}</span>
 						</td>
 						<td className={`py-4 text-right text-lg ${updown}`}>{closeRate}%</td>
-						{ma5 && <td className="py-4 text-right text-lg">{ma5}</td>}
-						{ma20 && <td className="py-4 text-right text-lg">{ma20}</td>}
 						{volumeRate && <td className="py-4 text-right text-lg">{volumeRate}%</td>}
 						{marketCap && <td className="py-4 text-right text-lg">{marketCap}</td>}
 						<td className="py-4 text-right text-lg">{volume}</td>

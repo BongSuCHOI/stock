@@ -2,7 +2,7 @@ import Category from '@components/Category';
 import '@/styles/globals.css';
 
 async function getCategory() {
-	const req = await fetch('http://localhost:3000/api/hello');
+	const req = await fetch('http://localhost:3000/api/category');
 	const res = await req.json();
 	return res;
 }

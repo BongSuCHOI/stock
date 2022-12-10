@@ -15,8 +15,10 @@ export default function Category({ categoryData }) {
 		.map((data) => {
 			const activeClass = decodePath === `/theme/${data.STK_TD}` ? 'bg-slate-700 text-white' : 'bg-slate-100';
 			return (
-				<li key={data.STK_TD} className={`px-4 py-2 rounded-full ${activeClass}`}>
-					<Link href={`/theme/${data.STK_TD}`}>{data.STK_TD}</Link>
+				<li key={data.STK_TD}>
+					<Link href={`/theme/${data.STK_TD}`} className={`block px-4 py-2 rounded-full ${activeClass} hover:bg-slate-700 hover:text-white transition-all`}>
+						{data.STK_TD}
+					</Link>
 				</li>
 			);
 		});
@@ -24,8 +26,10 @@ export default function Category({ categoryData }) {
 	return (
 		<div className="py-2 border-y border-slate-200">
 			<ul className="flex items-center justify-center space-x-2">
-				<li className={`px-4 py-2 rounded-full ${decodePath === '/' ? 'bg-slate-700 text-white' : 'bg-slate-100'}`}>
-					<Link href={'/'}>전체</Link>
+				<li>
+					<Link href={'/'} className={`block px-4 py-2 rounded-full ${decodePath === '/' ? 'bg-slate-700 text-white' : 'bg-slate-100'}`}>
+						전체
+					</Link>
 				</li>
 				{CategoryList}
 			</ul>
