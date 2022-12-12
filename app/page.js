@@ -1,7 +1,7 @@
 import PageContents from '../components/PageContents';
 
 async function getAllStock() {
-	const req = await fetch('http://localhost:3000/api/stock/all');
+	const req = await fetch(`${process.env.BASE_URL}api/stock/all`);
 	const res = await req.json();
 	return res;
 }

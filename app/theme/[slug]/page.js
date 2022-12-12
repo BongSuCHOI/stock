@@ -1,7 +1,7 @@
 import PageContents from '../../../components/PageContents';
 
 async function getThemeStock(theme) {
-	const req = await fetch(`http://localhost:3000/api/stock/${theme}`);
+	const req = await fetch(`${process.env.BASE_URL}api/stock/${theme}`);
 	const res = await req.json();
 	return res;
 }
