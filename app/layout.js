@@ -1,10 +1,14 @@
 import Category from '@components/Category';
 import '@/styles/globals.css';
+import { prisma } from 'prisma/db';
 
 async function getCategory() {
-	const req = await fetch(`${process.env.BASE_URL}api/category`);
-	const res = await req.json();
-	return res;
+	const data = await prisma.Stock_Item.findMany({
+		select: {
+			STK_TD: true,
+		},
+	});
+	return data;
 }
 
 export default async function RootLayout({ children }) {
