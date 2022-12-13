@@ -1,14 +1,15 @@
-import Category from '@components/Category';
-import '@/styles/globals.css';
+import { getCategory } from 'prisma/db';
 
-async function getCategory() {
-	const req = await fetch(`${process.env.BASE_URL}api/category`);
-	const res = await req.json();
-	return res;
-}
+import Category from '@components/Category';
+
+import '@/styles/globals.css';
 
 export default async function RootLayout({ children }) {
 	const categoryData = await getCategory();
+	const category = categoryData.filter((data, idx, callback) => {
+		// 중복 키값 제거
+		return idx === callback.findIndex((arr) => arr.STK_TD === data.STK_TD);
+	});
 
 	return (
 		<html lang="ko">
@@ -25,7 +26,7 @@ export default async function RootLayout({ children }) {
 							MA(이동평균선) 골드크로스/데드크로스 종목을 알려드립니다.
 						</h2>
 					</div>
-					<Category categoryData={categoryData} />
+					<Category categoryData={category} />
 					{children}
 				</div>
 			</body>
