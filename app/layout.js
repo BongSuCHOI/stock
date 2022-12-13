@@ -1,6 +1,6 @@
-import { getCategory } from 'prisma/db';
+// import { getCategory } from 'prisma/db';
 
-// import Category from '@components/Category';
+import Category from '@components/Category';
 
 import '@/styles/globals.css';
 
