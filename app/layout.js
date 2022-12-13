@@ -1,11 +1,11 @@
 import { getCategory } from 'prisma/db';
 
-import Category from '@components/Category';
+// import Category from '@components/Category';
 
 import '@/styles/globals.css';
 
 export default async function RootLayout({ children }) {
-	const categoryData = await getCategory();
+	// const categoryData = await getCategory();
 
 	return (
 		<html lang="ko">
@@ -22,7 +22,7 @@ export default async function RootLayout({ children }) {
 							MA(이동평균선) 골드크로스/데드크로스 종목을 알려드립니다.
 						</h2>
 					</div>
-					<Category categoryData={categoryData} />
+					{/* <Category categoryData={categoryData} /> */}
 					{children}
 				</div>
 			</body>
