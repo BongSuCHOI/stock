@@ -1,3 +1,5 @@
+'use client';
+
 import { getThemeData } from 'prisma/db';
 
 import PageContents from '../../../components/PageContents';
