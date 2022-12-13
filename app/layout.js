@@ -1,15 +1,8 @@
-import Category from '@components/Category';
-import '@/styles/globals.css';
-import prisma from 'prisma/db';
+import { getCategory } from 'prisma/db';
 
-async function getCategory() {
-	const data = await prisma.Stock_Item.findMany({
-		select: {
-			STK_TD: true,
-		},
-	});
-	return data;
-}
+import Category from '@components/Category';
+
+import '@/styles/globals.css';
 
 export default async function RootLayout({ children }) {
 	const categoryData = await getCategory();

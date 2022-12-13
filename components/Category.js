@@ -16,7 +16,7 @@ export default function Category({ categoryData }) {
 			const activeClass = decodePath === `/theme/${data.STK_TD}` ? 'bg-slate-700 text-white' : 'bg-slate-100';
 			return (
 				<li key={data.STK_TD}>
-					<Link href={`/theme/${data.STK_TD}`} className={`block px-4 py-2 rounded-full ${activeClass} hover:bg-slate-700 hover:text-white transition-all`}>
+					<Link href={`/theme/${encodeURIComponent(data.STK_TD)}`} className={`block px-4 py-2 rounded-full ${activeClass} hover:bg-slate-700 hover:text-white transition-all`}>
 						{data.STK_TD}
 					</Link>
 				</li>
