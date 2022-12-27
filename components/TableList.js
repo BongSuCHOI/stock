@@ -17,7 +17,7 @@ export default function TableList({ headRows, listData }) {
 				return (
 					<tr key={code} className="border-b border-slate-200">
 						<td className="py-4 text-left text-lg">
-							<a href={`https://finance.naver.com/item/main.naver?code=${code}`} terget="_blank">
+							<a href={`https://finance.naver.com/item/main.naver?code=${code}`} target="_blank" rel="noreferrer" className="hover:text-slate-500 transition-all">
 								{name}
 								<span className="block text-xs text-slate-500">
 									{code} / {market}

@@ -19,7 +19,7 @@ export default function Category({ categoryData }) {
 	});
 
 	return (
-		<div className="py-2 border-y border-slate-200">
+		<div className="py-2.5 border-y border-slate-200 sticky top-0 bg-white/75 backdrop-blur-sm">
 			<ul className="flex items-center justify-center space-x-2">
 				<li>
 					<Link href={'/'} className={`block px-4 py-2 rounded-full ${decodePath === '/' ? 'bg-slate-700 text-white' : 'bg-slate-100'}`}>

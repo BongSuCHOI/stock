@@ -43,7 +43,7 @@ export default function PageContents(props) {
 		});
 
 	return (
-		<div className="">
+		<div className="pt-12 pb-24">
 			<div className="mt-12">
 				<ContentsTitle title="골드크로스" />
 				<TableList headRows={['종목명', '전일 종가', '전일 등락률', '시가총액', '전일 거래량']} listData={goldCrossData} />
