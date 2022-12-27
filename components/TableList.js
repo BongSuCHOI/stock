@@ -17,10 +17,12 @@ export default function TableList({ headRows, listData }) {
 				return (
 					<tr key={code} className="border-b border-slate-200">
 						<td className="py-4 text-left text-lg">
-							{name}
-							<span className="block text-xs text-slate-500">
-								{code} / {market}
-							</span>
+							<a href={`https://finance.naver.com/item/main.naver?code=${code}`} terget="_blank">
+								{name}
+								<span className="block text-xs text-slate-500">
+									{code} / {market}
+								</span>
+							</a>
 						</td>
 						<td className="py-4 text-right text-lg">
 							{close}
