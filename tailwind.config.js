@@ -14,7 +14,10 @@ module.exports = {
 			colors: {
 				'tv-border': '#d9dadb',
 			},
+			fontSize: {
+				'10px': '10px',
+			},
 		},
 	},
-	plugins: [],
+	plugins: [require('tailwind-scrollbar-hide')],
 };

@@ -1,6 +1,6 @@
 export default function ContentsTitle({ title, desc }) {
 	return (
-		<h3 className="flex align-center text-2xl font-semibold">
+		<h3 className="flex align-center text-xl sm:text-2xl font-semibold">
 			{title}
 			<div className="relative">
 				<button className="peer ml-2">
@@ -13,7 +13,7 @@ export default function ContentsTitle({ title, desc }) {
 					</svg>
 				</button>
 				<div
-					className="opacity-0 invisible absolute peer-hover:visible peer-hover:opacity-100 text-xs leading-4 font-normal p-4 rounded-2xl bg-slate-100 w-72 max-w-xs transition-all"
+					className="opacity-0 invisible absolute peer-hover:visible peer-hover:opacity-100 text-xs leading-4 font-normal p-4 rounded-2xl bg-slate-100 w-60 sm:w-72 max-w-xs transition-all"
 					dangerouslySetInnerHTML={{ __html: desc }}></div>
 			</div>
 		</h3>
