@@ -45,23 +45,33 @@ export default function PageContents(props) {
 	return (
 		<div className="pt-12 pb-24">
 			<div className="mt-12">
-				<ContentsTitle title="골드크로스" />
+				<ContentsTitle
+					title="골드크로스"
+					desc="단기 이동 평균(5일)이 장기 이동 평균(20일) 위로 교차하는 종목을 보여줍니다.<br />
+					(금일 단기 이동 평균 < 금일 장기 이동 평균, 이전 단기 이동 평균 >= 이전 장기 이동 평균 두 가지 경우가 일치하는 종목)<br />
+					*추세는 고려되지 않습니다."
+				/>
 				<TableList headRows={['종목명', '전일 종가', '전일 등락률', '시가총액', '전일 거래량']} listData={goldCrossData} />
 			</div>
 			<div className="mt-24">
-				<ContentsTitle title="데드크로스" />
+				<ContentsTitle
+					title="데드크로스"
+					desc="단기 이동 평균(5일)이 장기 이동 평균(20일) 아래로 교차하는 종목을 보여줍니다.<br />
+					(금일 단기 이동 평균 > 금일 장기 이동 평균, 이전 단기 이동 평균 <= 이전 장기 이동 평균 두 가지 경우가 일치하는 종목)<br />
+					*추세는 고려되지 않습니다."
+				/>
 				<TableList headRows={['종목명', '전일 종가', '전일 등락률', '시가총액', '전일 거래량']} listData={deadCrossData} />
 			</div>
 			<div className="mt-24">
-				<ContentsTitle title="시가총액 TOP 5" />
+				<ContentsTitle title="시가총액 TOP 5" desc="시가 총액이 제일 높은 상위 5개 종목을 보여줍니다." />
 				<TableList headRows={['종목명', '전일 종가', '전일 등락률', '시가총액', '전일 거래량']} listData={marketCap5} />
 			</div>
 			<div className="mt-24">
-				<ContentsTitle title="거래량 TOP 5" />
+				<ContentsTitle title="거래량 TOP 5" desc="거래량이 제일 높은 상위 5개 종목을 보여줍니다." />
 				<TableList headRows={['종목명', '전일 종가', '전일 등락률', '시가총액', '전일 거래량']} listData={volume5} />
 			</div>
 			<div className="mt-24">
-				<ContentsTitle title="거래량 증가" />
+				<ContentsTitle title="거래량 증가" desc="이전일 거래량보다 금일 거래량이 상승한 종목을 보여줍니다." />
 				<TableList headRows={['종목명', '전일 종가', '전일 등락률', '거래량 증가율', '전일 거래량']} listData={increaseVolume} />
 			</div>
 		</div>
