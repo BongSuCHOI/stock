@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Script from 'next/script';
 
 import { getCategory } from 'prisma/db';
 
@@ -33,19 +32,6 @@ export default async function RootLayout({ children }) {
 				<link rel="canonical" href="https://stock-sable.vercel.app/" />
 				<link rel="icon" href="/favicon.ico" type="image/x-icon" />
 			</head>
-			<Script
-				id="google-tag-manager"
-				src="https://www.googletagmanager.com/gtag/js?id=G-QCK9GFTZTJ"
-				async
-				onLoad={() => {
-					window.dataLayer = window.dataLayer || [];
-					function gtag() {
-						dataLayer.push(arguments);
-					}
-					gtag('js', new Date());
-
-					gtag('config', 'G-QCK9GFTZTJ');
-				}}></Script>
 			<body>
 				<div className="max-w-screen-lg px-4 mx-auto relative">
 					<TradingviewTickerWidget />
