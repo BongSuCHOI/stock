@@ -26,10 +26,10 @@ export default async function RootLayout({ children }) {
 				<meta name="description" content="테마별 상위 시가총액, 거래량 종목과 거래량 증가 종목, MA(이동평균선) 골드크로스/데드크로스 종목을 알려드립니다." />
 				<meta property="og:type" content="Website" />
 				<meta property="og:title" content="개미집" />
-				<meta property="og:url" content="@@@@@url 필요" />
+				<meta property="og:url" content="https://stock-sable.vercel.app/" />
 				<meta property="og:description" content="테마별 상위 시가총액, 거래량 종목과 거래량 증가 종목, MA(이동평균선) 골드크로스/데드크로스 종목을 알려드립니다." />
-				<meta property="og:image" content="@@@@@og 썸네일 이미지 필요" />
-				<link rel="canonical" href="@@@@@url 필요" />
+				<meta property="og:image" content="https://stock-sable.vercel.app/images/share_logo.jpg" />
+				<link rel="canonical" href="https://stock-sable.vercel.app/" />
 				<link rel="icon" href="/favicon.ico" type="image/x-icon" />
 			</head>
 			<body>
