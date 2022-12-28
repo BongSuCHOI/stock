@@ -1,6 +1,8 @@
 import { getCategory } from 'prisma/db';
 
 import Category from '@components/Category';
+import TradingviewTickerWidget from '@components/tradingview/TickerWidget';
+import TradingviewChartWidget from '@components/tradingview/ChartWidget';
 
 import '@/styles/globals.css';
 
@@ -14,6 +16,7 @@ export default async function RootLayout({ children }) {
 			</head>
 			<body>
 				<div className="max-w-screen-lg px-4 mx-auto relative">
+					<TradingviewTickerWidget />
 					<div className="my-20 text-center">
 						<h1 className="text-8xl font-semibold">STOCK</h1>
 						<h2 className="text-base mt-2 font-light">
@@ -22,6 +25,7 @@ export default async function RootLayout({ children }) {
 							MA(이동평균선) 골드크로스/데드크로스 종목을 알려드립니다.
 						</h2>
 					</div>
+					<TradingviewChartWidget />
 					<Category categoryData={categoryData} />
 					{children}
 				</div>
