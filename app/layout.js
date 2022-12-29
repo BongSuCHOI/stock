@@ -1,10 +1,11 @@
 import Image from 'next/image';
 
-import { getCategory } from 'prisma/db';
-
 import Category from '@components/Category';
+import { VercelAnalytics } from '@components/VercelAnalytics';
 import TradingviewTickerWidget from '@components/tradingview/TickerWidget';
 import TradingviewChartWidget from '@components/tradingview/ChartWidget';
+
+import { getCategory } from '@util/db';
 
 import '@/styles/globals.css';
 
@@ -50,6 +51,7 @@ export default async function RootLayout({ children }) {
 					<TradingviewChartWidget />
 					<Category categoryData={categoryData} />
 					{children}
+					<VercelAnalytics />
 				</div>
 			</body>
 		</html>
