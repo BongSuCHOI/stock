@@ -14,7 +14,7 @@ export default function TableList({ headRows, listData }) {
 		listData.length > 0 ? (
 			listData.map((data) => {
 				const { name, code, market, close, marketCap, volume, volumeRate, closeDiff, closeRate } = data;
-				const updown = Number(closeRate) > 0 ? 'text-red-500' : 'text-blue-600';
+				const updown = Number(closeRate) > 0 ? 'text-red-600' : 'text-blue-600';
 
 				return (
 					<tr key={code} className="border-b border-slate-200">
@@ -39,7 +39,7 @@ export default function TableList({ headRows, listData }) {
 			})
 		) : (
 			<tr className="border-b border-slate-200">
-				<td colSpan="6" className="w-full py-4 text-center text-base sm:text-lg text-slate-400">
+				<td colSpan="6" className="w-full py-4 text-center text-base sm:text-lg text-slate-500">
 					카테고리에 일치하는 전일 종목 없음
 				</td>
 			</tr>

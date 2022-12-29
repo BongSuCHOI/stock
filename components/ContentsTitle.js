@@ -3,7 +3,7 @@ export default function ContentsTitle({ title, desc }) {
 		<h3 className="flex align-center text-xl sm:text-2xl font-semibold">
 			{title}
 			<div className="relative">
-				<button className="peer ml-2">
+				<button className="peer ml-2" title="title info">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 16 16">
 						<g fill="none" fillRule="evenodd">
 							<circle cx="8" cy="8" r="7.5" fill="#FFF" stroke="#a0a5ad"></circle>
