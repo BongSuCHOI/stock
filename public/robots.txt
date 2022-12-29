@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 
-Sitemap: https://stock-sable.vercel.app/sitemap.xml
+Sitemap: https://gaemijib.vercel.app/sitemap.xml
