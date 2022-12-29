@@ -1,0 +1,14 @@
+name: daily-db-check-cron
+on:
+  schedule:
+    - cron: '* * * * *'
+#     - cron: '30 16 * * *'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call our API route
+        run: |
+          curl --request POST \
+          --url 'https://gaemijib.vercel.app/api/dbUpdateCheck' \
+          --header 'Authorization: Bearer ${{ secrets.ACCESS_KEY }}'
