@@ -37,7 +37,7 @@ export default async function RootLayout({ children }) {
 					<TradingviewTickerWidget />
 					<div className="my-12 sm:my-24 text-center">
 						<h1 className="w-6/12 sm:w-full mx-auto">
-							<Image className="mx-auto w-auto" src="/images/logo.svg" width={360} height={90} alt="STOCK" />
+							<Image className="mx-auto" src="/images/logo.svg" width={360} height={90} alt="STOCK" />
 						</h1>
 						<h2 className="text-xs sm:text-base mt-4 sm:mt-6 font-normal">
 							테마별 상위 시가총액, 거래량 종목과 거래량 증가 종목,
