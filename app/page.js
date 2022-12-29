@@ -1,4 +1,4 @@
-import { getThemeData } from 'prisma/db';
+import { getThemeData } from '@util/db';
 
 import PageContents from '../components/PageContents';
 

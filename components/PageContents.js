@@ -1,6 +1,6 @@
 import ContentsTitle from '@components/ContentsTitle';
 import TableList from '@components/TableList';
-import { DESCENDING_SORT, A_TO_B_PERCENT, MA } from '@/lib/calc';
+import { DESCENDING_SORT, A_TO_B_PERCENT, MA } from '@util/calc';
 
 export default function PageContents(props) {
 	const stockData = processingkData(props.stockData);
