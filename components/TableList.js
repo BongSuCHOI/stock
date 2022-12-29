@@ -41,7 +41,7 @@ export default function TableList({ headRows, listData }) {
 			})
 		) : (
 			<tr className="border-b border-slate-200">
-				<td colSpan="6" className="w-full py-4 text-center text-base sm:text-lg text-slate-500">
+				<td colSpan="5" className="w-full py-4 text-center text-base sm:text-lg text-slate-500">
 					카테고리에 일치하는 전일 종목 없음
 				</td>
 			</tr>

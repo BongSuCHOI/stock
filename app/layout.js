@@ -44,7 +44,7 @@ export default async function RootLayout({ children }) {
 							<br />
 							MA(이동평균선) 골드크로스/데드크로스 종목을 알려드립니다.
 							<br />
-							<p className="text-[10px] sm:text-xs leading-6 text-slate-500">(모든 종목은 리페인팅 방지를 위해 당일 장 마감 후 계산되어 반영됩니다.)</p>
+							<span className="block text-[10px] sm:text-xs leading-6 text-slate-500">(모든 종목은 리페인팅 방지를 위해 당일 장 마감 후 계산되어 반영됩니다.)</span>
 						</h2>
 					</div>
 					<TradingviewChartWidget />

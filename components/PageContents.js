@@ -48,7 +48,7 @@ export default function PageContents(props) {
 				<ContentsTitle
 					title="골드크로스"
 					desc="단기 이동 평균(5일)이 장기 이동 평균(20일) 위로 교차하는 종목을 보여줍니다.<br />
-					(금일 단기 이동 평균 < 금일 장기 이동 평균, 이전 단기 이동 평균 >= 이전 장기 이동 평균 두 가지 경우가 일치하는 종목)<br />
+					(금일 단기 이동 평균 &lt; 금일 장기 이동 평균, 이전 단기 이동 평균 &gt;= 이전 장기 이동 평균 두 가지 경우가 일치하는 종목)<br />
 					*추세는 고려되지 않습니다."
 				/>
 				<TableList headRows={['종목명', '전일 종가', '전일 등락률', '시가총액', '전일 거래량']} listData={goldCrossData} />
@@ -57,7 +57,7 @@ export default function PageContents(props) {
 				<ContentsTitle
 					title="데드크로스"
 					desc="단기 이동 평균(5일)이 장기 이동 평균(20일) 아래로 교차하는 종목을 보여줍니다.<br />
-					(금일 단기 이동 평균 > 금일 장기 이동 평균, 이전 단기 이동 평균 <= 이전 장기 이동 평균 두 가지 경우가 일치하는 종목)<br />
+					(금일 단기 이동 평균 &gt; 금일 장기 이동 평균, 이전 단기 이동 평균 &lt;= 이전 장기 이동 평균 두 가지 경우가 일치하는 종목)<br />
 					*추세는 고려되지 않습니다."
 				/>
 				<TableList headRows={['종목명', '전일 종가', '전일 등락률', '시가총액', '전일 거래량']} listData={deadCrossData} />
