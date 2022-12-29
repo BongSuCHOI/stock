@@ -19,8 +19,10 @@ export default function TableList({ headRows, listData }) {
 				return (
 					<tr key={code} className="border-b border-slate-200">
 						<td className="py-4 text-left text-base sm:text-lg">
-							<a href={`https://finance.naver.com/item/main.naver?code=${code}`} target="_blank" rel="noreferrer" className="hover:text-slate-500 transition-all">
-								{name}
+							<a href={`https://finance.naver.com/item/main.naver?code=${code}`} target="_blank" rel="noreferrer" className="group">
+								<span className="relative before:content-[''] before:w-0 before:h-0.5 before:absolute before:left-2/4 before:bottom-0 before:bg-black before:transition-all group-hover:before:left-0 group-hover:before:w-full">
+									{name}
+								</span>
 								<span className="block text-[10px] leading-3 sm:text-xs text-slate-500">
 									{code} / {market}
 								</span>
