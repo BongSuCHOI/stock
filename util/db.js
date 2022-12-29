@@ -1,4 +1,6 @@
+import { cache } from 'react';
 import { PrismaClient } from '@prisma/client';
+// import 'server-only';
 
 let prisma;
 
@@ -11,18 +13,19 @@ if (process.env.NODE_ENV === 'production') {
 	prisma = global.prisma;
 }
 
-export default prisma;
-
-export const getCategory = async () => {
+export const getCategory = cache(async () => {
 	const data = await prisma.Stock_Item.findMany({
 		select: {
 			STK_TD: true,
 		},
 	});
-	return data;
-};
 
-export const getThemeData = async (theme) => {
+	// 중복 키값 제거
+	const result = data.filter((data, idx, callback) => idx === callback.findIndex((arr) => arr.STK_TD === data.STK_TD));
+	return result;
+});
+
+export const getThemeData = cache(async (theme) => {
 	const data = await prisma.Stock_Item.findMany({
 		where: {
 			STK_TD: theme === 'all' ? { not: '' } : theme,
@@ -30,15 +33,18 @@ export const getThemeData = async (theme) => {
 		include: {
 			stk_ohlcv: {
 				where: {
-					STK_YEAR: { gte: calcDate(30) },
+					STK_YEAR: { gte: calcDate(50) },
 				},
 			},
 		},
 	});
-	return data;
-};
 
-function calcDate(limit) {
+	// 가격 데이터 없는 종목 필터링
+	const result = data.filter((d) => d.stk_ohlcv.length > 0);
+	return result;
+});
+
+const calcDate = cache((limit) => {
 	const today = new Date();
 	let count = 0;
 	let prevDate;
@@ -62,4 +68,4 @@ function calcDate(limit) {
 	const day = ('0' + prevDate.getDate()).slice(-2);
 
 	return year + month + day;
-}
+});
