@@ -13,7 +13,7 @@ if (process.env.NODE_ENV === 'production') {
 	prisma = global.prisma;
 }
 
-export const getCategory = cache(async () => {
+export const getCategory = async () => {
 	const data = await prisma.Stock_Item.findMany({
 		select: {
 			STK_TD: true,
@@ -23,9 +23,9 @@ export const getCategory = cache(async () => {
 	// 중복 키값 제거
 	const result = data.filter((data, idx, callback) => idx === callback.findIndex((arr) => arr.STK_TD === data.STK_TD));
 	return result;
-});
+};
 
-export const getThemeData = cache(async (theme) => {
+export const getThemeData = async (theme) => {
 	const data = await prisma.Stock_Item.findMany({
 		where: {
 			STK_TD: theme === 'all' ? { not: '' } : theme,
@@ -42,7 +42,7 @@ export const getThemeData = cache(async (theme) => {
 	// 가격 데이터 없는 종목 필터링
 	const result = data.filter((d) => d.stk_ohlcv.length > 0);
 	return result;
-});
+};
 
 const calcDate = cache((limit) => {
 	const today = new Date();
