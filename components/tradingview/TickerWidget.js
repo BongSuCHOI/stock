@@ -10,7 +10,13 @@ export default function TickerWidget() {
 				src="https://s3.tradingview.com/external-embedding/embed-widget-tickers.js"
 				async
 				onLoad={() => {
-					document.querySelector('.tv-widget-container').appendChild(document.getElementById('tv-ticker-widget'));
+					const widget = document.getElementById('tv-ticker-widget');
+
+					if (!widget.parentElement.hasAttribute('class')) {
+						widget.parentElement.remove();
+					}
+
+					document.querySelector('.tv-widget-container').appendChild(widget);
 				}}>
 				{JSON.stringify({
 					symbols: [

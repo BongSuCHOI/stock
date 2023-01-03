@@ -5,7 +5,7 @@ import Script from 'next/script';
 export default function ChartWidget() {
 	return (
 		<div className="tv-widget-container h-72 sm:h-96 pb-3 sm:pb-5">
-			<div id="tradingview_f6e3e" className='h-full'></div>
+			<div id="tradingview_f6e3e" className="h-full"></div>
 			<Script
 				id="tv-chart-widget"
 				src="https://s3.tradingview.com/tv.js"
