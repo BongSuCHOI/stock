@@ -1,4 +1,6 @@
-export default function TableList({ headRows, listData }) {
+import React from 'react';
+
+export default React.memo(function TableList({ headRows, listData }) {
 	const tHeadRows = headRows.map((row, idx, arr) => {
 		const w = arr.length === 6 ? 'w-28' : 'w-40';
 		const display = row === '전일 거래량' || row === '시가총액' ? 'hidden sm:table-cell' : 'table-cell';
@@ -55,4 +57,4 @@ export default function TableList({ headRows, listData }) {
 			<tbody>{tBodyColumn}</tbody>
 		</table>
 	);
-}
+});
