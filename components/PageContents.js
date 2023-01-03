@@ -14,7 +14,7 @@ export default function PageContents(props) {
 	const shortRef = useRef(null);
 	const longRef = useRef(null);
 
-	const stockData = processingkData(props.stockData);
+	const stockData = processingkData(props.stockData, shortMA, longMA);
 
 	const goldCrossData = stockData
 		.filter((data) => {
@@ -37,7 +37,7 @@ export default function PageContents(props) {
 	});
 
 	const increaseVolume = stockData
-		.filter((data) => data.volumeRate > 0)
+		.filter((data) => data.volumeRate > 100)
 		.map((data) => {
 			const { currentMAShort, currentMALong, marketCap, ...other } = data;
 			return other;
@@ -80,9 +80,10 @@ export default function PageContents(props) {
 					<div className="flex items-center justify-between">
 						<ContentsTitle
 							title="골드크로스"
-							desc="단기 이동 평균이 장기 이동 평균을 위로 돌파하는 종목을 보여줍니다.<br />
+							desc="단기 이동 평균이 장기 이동 평균을 위로 돌파하는 종목<br />
 					(금일 단기 이동 평균 &lt; 금일 장기 이동 평균, 이전 단기 이동 평균 &gt;= 이전 장기 이동 평균 두 가지 경우가 일치하는 종목)<br />
-					*추세는 고려되지 않습니다."
+					*추세는 고려되지 않습니다.<br />
+					*금일 = 실시간x 장 마감 후o"
 						/>
 						<button className="rounded px-3 h-8 bg-slate-700 hover:bg-slate-800 text-white transition-all text-sm sm:text-base sm:h-9" onClick={maSetOpenHandler}>
 							이평선 설정
@@ -91,16 +92,17 @@ export default function PageContents(props) {
 					<TableList headRows={['종목명', '전일 종가', '전일 등락률', '시가총액', '전일 거래량']} listData={goldCrossData} />
 				</div>
 				<div className="mt-16 mt-24">
-					<ContentsTitle title="시가총액 TOP 5" desc="시가 총액이 제일 높은 상위 5개 종목을 보여줍니다." />
+					<ContentsTitle title="거래량 증가" desc="이전일 거래량보다 금일 거래량이 100% 이상 상승한 종목<br />
+					*금일 = 실시간x 장 마감 후o" />
+					<TableList headRows={['종목명', '전일 종가', '전일 등락률', '거래량 증가율', '전일 거래량']} listData={increaseVolume} />
+				</div>
+				<div className="mt-16 mt-24">
+					<ContentsTitle title="시가총액 TOP 5" desc="시가 총액이 제일 높은 상위 5개 종목" />
 					<TableList headRows={['종목명', '전일 종가', '전일 등락률', '시가총액', '전일 거래량']} listData={marketCap5} />
 				</div>
 				<div className="mt-16 mt-24">
-					<ContentsTitle title="거래량 TOP 5" desc="거래량이 제일 높은 상위 5개 종목을 보여줍니다." />
+					<ContentsTitle title="거래량 TOP 5" desc="거래량이 제일 높은 상위 5개 종목" />
 					<TableList headRows={['종목명', '전일 종가', '전일 등락률', '시가총액', '전일 거래량']} listData={volume5} />
-				</div>
-				<div className="mt-16 mt-24">
-					<ContentsTitle title="거래량 증가" desc="이전일 거래량보다 금일 거래량이 상승한 종목을 보여줍니다." />
-					<TableList headRows={['종목명', '전일 종가', '전일 등락률', '거래량 증가율', '전일 거래량']} listData={increaseVolume} />
 				</div>
 			</section>
 			{isMASetOpen && (

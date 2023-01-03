@@ -33,7 +33,7 @@ export const getThemeData = cache(async (theme) => {
 		include: {
 			stk_ohlcv: {
 				where: {
-					STK_YEAR: { gte: calcDate(50) },
+					STK_YEAR: { gte: calcDate(250) },
 				},
 			},
 		},
