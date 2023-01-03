@@ -1,5 +1,9 @@
+# *
 User-agent: *
 Allow: /
 
+# Host
+Host: https://gaemijib.vercel.app/
 
+# Sitemaps
 Sitemap: https://gaemijib.vercel.app/sitemap.xml
