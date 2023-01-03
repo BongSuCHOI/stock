@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useRef } from 'react';
+import { useState, useRef } from 'react';
 
 import ContentsTitle from '@components/ContentsTitle';
 import TableList from '@components/TableList';
@@ -14,7 +14,7 @@ export default function PageContents(props) {
 	const shortRef = useRef(null);
 	const longRef = useRef(null);
 
-	const stockData = useMemo(() => processingkData(props.stockData, shortMA, longMA), [props.stockData, shortMA, longMA]);
+	const stockData = processingkData(props.stockData);
 
 	const goldCrossData = stockData
 		.filter((data) => {
