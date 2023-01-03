@@ -8,6 +8,9 @@ module.exports = {
 			sans: ['Noto Sans KR', ...defaultTheme.fontFamily.sans],
 		},
 		extend: {
+			width: {
+				'47.5%': '47.5%',
+			},
 			height: {
 				'72px': '72px',
 			},
@@ -16,6 +19,9 @@ module.exports = {
 			},
 			fontSize: {
 				'10px': '10px',
+			},
+			translate: {
+				'-50%': '-50%',
 			},
 		},
 	},

@@ -21,7 +21,7 @@ export default function Category({ categoryData }) {
 	});
 
 	return (
-		<div className="py-2.5 border-y border-[#d9dadb] sticky top-0 bg-white/75 backdrop-blur-sm">
+		<section className="py-2.5 border-y border-[#d9dadb] sticky top-0 bg-white/75 backdrop-blur-sm">
 			<ul className="whitespace-nowrap space-x-2 overflow-x-scroll text-center scrollbar-hide">
 				<li className="inline-block">
 					<Link href={'/'} className={`text-sm sm:text-base block px-4 py-2 rounded-full ${decodePath === '/' ? 'bg-slate-700 text-white' : 'bg-slate-100'}`}>
@@ -30,6 +30,6 @@ export default function Category({ categoryData }) {
 				</li>
 				{CategoryList}
 			</ul>
-		</div>
+		</section>
 	);
 }
