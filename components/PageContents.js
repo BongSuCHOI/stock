@@ -75,7 +75,7 @@ export default function PageContents(props) {
 
 	return (
 		<>
-			<section className="pt-6 sm:pt-12">
+			<section className="pt-6 sm:pt-12 px-2 lg:px-0">
 				<div className="mt-8 sm:mt-12">
 					<div className="flex items-center justify-between">
 						<ContentsTitle
